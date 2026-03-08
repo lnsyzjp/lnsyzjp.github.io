@@ -1,3 +1,3 @@
-var posts=["2026/03/06/android/","2026/03/07/feature-detection-match/","2026/03/07/lidar-slam/","2026/03/07/video-stabilization-introduction/","2026/03/07/sensors-introduction/","2026/03/01/hello-world/","2026/03/01/hello-world2/","2026/03/07/video-stabilization/","2026/03/07/vslam/"];function toRandomPost(){
+var posts=["2026/03/06/android/","2026/03/07/feature-detection-match/","2026/03/01/hello-world/","2026/03/01/hello-world2/","2026/03/07/lidar-slam/","2026/03/07/video-stabilization-introduction/","2026/03/07/vslam/","2026/03/07/video-stabilization/","2026/03/07/sensors-introduction/"];function toRandomPost(){
     pjax.loadUrl('/'+posts[Math.floor(Math.random() * posts.length)]);
   };
