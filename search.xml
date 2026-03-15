@@ -4,6 +4,106 @@
   
     
     <entry>
+      <title>IMU与其他传感器融合</title>
+      <link href="/2026/03/15/IMU-pose-estimate-error-model%20copy/"/>
+      <url>/2026/03/15/IMU-pose-estimate-error-model%20copy/</url>
+      
+        <content type="html"><![CDATA[<h2 id="IMU-磁力计–-AHRS"><a href="#IMU-磁力计–-AHRS" class="headerlink" title="IMU+磁力计–&gt;AHRS"></a>IMU+磁力计–&gt;AHRS</h2><h2 id="IMU-GNSS–-INS"><a href="#IMU-GNSS–-INS" class="headerlink" title="IMU+GNSS–&gt;INS"></a>IMU+GNSS–&gt;INS</h2><h2 id="IMU-Camera–-VIO"><a href="#IMU-Camera–-VIO" class="headerlink" title="IMU+Camera–&gt;VIO"></a>IMU+Camera–&gt;VIO</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> SLAM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IMU </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>IMU状态估计误差模型</title>
+      <link href="/2026/03/15/IMU-pose-estimate-error-model/"/>
+      <url>/2026/03/15/IMU-pose-estimate-error-model/</url>
+      
+        <content type="html"><![CDATA[<h2 id="误差状态的定义"><a href="#误差状态的定义" class="headerlink" title="误差状态的定义"></a>误差状态的定义</h2><h2 id="误差传播方程"><a href="#误差传播方程" class="headerlink" title="误差传播方程"></a>误差传播方程</h2><h2 id="协方差传播"><a href="#协方差传播" class="headerlink" title="协方差传播"></a>协方差传播</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> SLAM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IMU </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>IMU姿态解算</title>
+      <link href="/2026/03/15/IMU-pose-estimate/"/>
+      <url>/2026/03/15/IMU-pose-estimate/</url>
+      
+        <content type="html"><![CDATA[<h2 id="陀螺仪积分"><a href="#陀螺仪积分" class="headerlink" title="陀螺仪积分"></a>陀螺仪积分</h2><h2 id="加速度计重力约束"><a href="#加速度计重力约束" class="headerlink" title="加速度计重力约束"></a>加速度计重力约束</h2><h2 id="动态融合VS静态融合"><a href="#动态融合VS静态融合" class="headerlink" title="动态融合VS静态融合"></a>动态融合VS静态融合</h2><h2 id="滤波"><a href="#滤波" class="headerlink" title="滤波"></a>滤波</h2><h3 id="互补滤波"><a href="#互补滤波" class="headerlink" title="互补滤波"></a>互补滤波</h3><h3 id="Mahony"><a href="#Mahony" class="headerlink" title="Mahony"></a>Mahony</h3><h3 id="Madgwick"><a href="#Madgwick" class="headerlink" title="Madgwick"></a>Madgwick</h3><h3 id="EKF"><a href="#EKF" class="headerlink" title="EKF"></a>EKF</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> SLAM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IMU </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>IMU运动学模型和误差模型</title>
+      <link href="/2026/03/15/IMU-kinematic-error-model/"/>
+      <url>/2026/03/15/IMU-kinematic-error-model/</url>
+      
+        <content type="html"><![CDATA[<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>&emsp;IMU 惯性测量单元(Inertial Measurement Unit) 是测量物体三轴角速度和加速度的设备。<br>&emsp;6轴IMU – 在正交的三轴上安装陀螺仪和加速度计，共6个自由度，测量物体在三维空间的角速度和加速度；<br>&emsp;9轴IMU – 加速度计+陀螺仪+磁力计，测量三轴磁场强度，共9个自由度；</p><ul><li>加速度计：测量载体系下的比力（加速度与重力的合成）。还能提供俯仰角（pitch）和横滚角（roll）的绝对参考；</li><li>陀螺仪：测量载体系下的角速度；</li><li>磁力计：测量载体系下磁场强度，可提供绝对航向角（yaw）的参考，需要加速度计提供重力方向做倾斜补偿；</li></ul><p>&emsp;&emsp;姿态与导航估计通常通过互补滤波、EKF、Madgwick、Mahony 等算法融合加速度计、陀螺仪和磁力计，以获得稳定、连续、抗干扰的三维姿态。由这三类传感器组成的 9 轴 IMU 加上姿态滤波器即可形成 AHRS（Attitude and Heading Reference System，航姿参考系统），提供 roll、pitch、yaw 的绝对姿态；在此基础上进一步利用 IMU 的加速度与角速度进行积分推算，并结合外部传感器抑制漂移，就构成INS（Inertial Navigation System，惯性导航系统），能够输出完整的姿态、速度和位置。</p><ul><li>为什么已经有加速度计（可以计算 roll&#x2F;pitch）+ 磁力计（计算 yaw），还必须要陀螺仪？</li></ul><p>&emsp;&emsp;加速度计和磁力计虽然能够在静止、无干扰的情况下分别提供 roll、pitch 和 yaw 的绝对姿态，但它们本质上只能测“静态姿态”：加速度计依赖重力方向，因此在设备加速、震动或受外力时读数会被破坏；磁力计依赖稳定的地磁环境，但现实中电机、金属结构、电线等都会造成严重干扰，使 yaw 不可靠。因此，加速度计 + 磁力计只能在“静止 + 环境干净”时给出一个大致姿态，无法用于动态场景。相比之下，陀螺仪是唯一能够直接测量瞬时角速度的传感器，具有高频、快速、抗加速度干扰的特点，能在毫秒级捕捉旋转变化，是动态姿态估计不可替代的核心。因此，即使已经有加速度计和磁力计，陀螺仪仍然是必需的。<br>测量原理：浅尝即可、不介绍、以下以6轴IMU为例。</p><h2 id="二、运动学模型"><a href="#二、运动学模型" class="headerlink" title="二、运动学模型"></a>二、运动学模型</h2><h3 id="姿态更新方程"><a href="#姿态更新方程" class="headerlink" title="姿态更新方程"></a>姿态更新方程</h3><h3 id="速度更新方程"><a href="#速度更新方程" class="headerlink" title="速度更新方程"></a>速度更新方程</h3><h3 id="位置更新方程"><a href="#位置更新方程" class="headerlink" title="位置更新方程"></a>位置更新方程</h3><h3 id="偏置模型"><a href="#偏置模型" class="headerlink" title="偏置模型"></a>偏置模型</h3><h2 id="三、误差模型"><a href="#三、误差模型" class="headerlink" title="三、误差模型"></a>三、误差模型</h2><h3 id="白噪声"><a href="#白噪声" class="headerlink" title="白噪声"></a>白噪声</h3><h3 id="偏置漂移"><a href="#偏置漂移" class="headerlink" title="偏置漂移"></a>偏置漂移</h3><h3 id="比例因子误差"><a href="#比例因子误差" class="headerlink" title="比例因子误差"></a>比例因子误差</h3><h3 id="安装误差"><a href="#安装误差" class="headerlink" title="安装误差"></a>安装误差</h3><h3 id="噪声与偏置的数学建模"><a href="#噪声与偏置的数学建模" class="headerlink" title="噪声与偏置的数学建模"></a>噪声与偏置的数学建模</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> SLAM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IMU </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>视觉特征点检测与匹配</title>
       <link href="/2026/03/07/feature-detection-match/"/>
       <url>/2026/03/07/feature-detection-match/</url>
@@ -47,13 +147,13 @@
       
         <tags>
             
+            <tag> IMU </tag>
+            
             <tag> Lidar </tag>
             
             <tag> 传感器 </tag>
             
             <tag> Camera </tag>
-            
-            <tag> IMU </tag>
             
             <tag> GPS </tag>
             
